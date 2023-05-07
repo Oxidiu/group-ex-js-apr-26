@@ -12,11 +12,60 @@ function isPrime(num) {
 }
 
 function getMax(arr) {
-  let sorted = arr.sort((a, b) => a - b)
-  return sorted[sorted.length - 1]
+  let sorted = arr.sort((a, b) => a - b);
+  return sorted[sorted.length - 1];
 }
 
 function getMin(arr) {
-  let sorted = arr.sort((a, b) => a - b)
-  return sorted[0]
+  let sorted = arr.sort((a, b) => a - b);
+  return sorted[0];
 }
+
+class Process {
+  static toJSON(obj) {
+    return JSON.stringify(obj);
+  }
+  static fromJSON(str) {
+    return JSON.parse(str);
+  }
+}
+const callback1 = (str) => {
+  const parsed = Process.fromJSON(str);
+  console.log(parsed);
+}
+const callback2 = (str) => {
+  const parsed = Process.fromJSON(str);
+  result = parsed.map((num) => num * 2);
+  console.log(result);
+}
+const callback3 = (str) => {
+  const parsed = Process.fromJSON(str);
+  result = parsed.filter((num) => num % 2 === 0);
+  console.log(result);
+}
+const func1 = (data, callback) => {
+  const json = Process.toJSON(data);
+  return callback(json);
+}
+
+const func2 = (data, callback) => {
+  const json = Process.toJSON(data);
+  setTimeout(() =>
+    callback(json), 2000
+  )
+}
+
+
+//----------------Console Logging--------------------
+console.log("func1 - callback1")
+func1(dataArr, callback1);
+console.log("func1 - callback2")
+func1(dataArr, callback2);
+console.log("func1 - callback3")
+func1(dataArr, callback3);
+console.log("func2 - callback1")
+func2(dataArr, callback1);
+console.log("func2 - callback2")
+func2(dataArr, callback2);
+console.log("func2 - callback3")
+func2(dataArr, callback3);
